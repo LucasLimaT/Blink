@@ -6,9 +6,7 @@
 //
 
 struct Exercise: Codable, Hashable {
-    let _id: String
-    let _rev: String
     let question: String
     let alternatives: [String]
-    let responses: String
+    let response: String
 }

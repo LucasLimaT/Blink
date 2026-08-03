@@ -15,8 +15,6 @@ struct Post: Codable, Hashable {
 }
 
 struct Comment: Codable, Hashable {
-    let _id: String
-    let _rev: String
     let author: String
-    let contents: String
+    let content: String
 }
