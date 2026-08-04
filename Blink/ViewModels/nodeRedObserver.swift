@@ -16,14 +16,14 @@ class ViewModel: ObservableObject {
     
     func fetch() {
         
-        guard let url = URL(string: "http://127.0.0.1:1880/pegar_adm_aulas") else {
+        guard let url = URL(string: "http://192.168.128.65:1880/pegar_adm_aulas") else {
             return
         }
         
         service.fetchLesson(url: url)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { _ in }) { exercises in
-                self.lessons = exercises
+            .sink(receiveCompletion: { _ in }) { lessons in
+                self.lessons = lessons
             }
             .store(in: &cancellables)
     }

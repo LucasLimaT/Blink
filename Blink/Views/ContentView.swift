@@ -13,11 +13,15 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            ForEach(viewModel.lessons, id: \.self) {lesson in
-                Text(lesson.title)
-                Text("\(lesson.type)")
+            ScrollView {
+                ForEach(viewModel.lessons, id: \.self) {lesson in
+                    Text(lesson.title)
+                    Text("\(lesson.type)")
+                    ForEach(lesson.contents,  id: \.self) { content in
+                        Text(content)
+                    }
+                }
             }
-
         }
         .onAppear(){
             viewModel.fetch()
