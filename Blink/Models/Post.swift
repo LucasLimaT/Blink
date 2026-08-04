@@ -5,9 +5,16 @@
 //  Created by Turma02-20 on 30/07/26.
 //
 
-struct Post: Codable, Hashable {
+struct PostGet: Codable, Hashable {
     let _id: String
     let _rev: String
+    let author: String
+    let comments: [Comment]
+    let contents: [String]
+    let tags: [String]
+}
+
+struct PostPost: Codable, Hashable {
     let author: String
     let comments: [Comment]
     let contents: [String]
@@ -18,3 +25,4 @@ struct Comment: Codable, Hashable {
     let author: String
     let content: String
 }
+

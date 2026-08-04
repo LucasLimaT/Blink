@@ -20,11 +20,10 @@ struct ContentView: View {
                     ForEach(lesson.contents,  id: \.self) { content in
                         Text(content)
                     }
+                }.onAppear(){
+                    viewModel.fetchAulas()
                 }
             }
-        }
-        .onAppear(){
-            viewModel.fetch()
         }
         
         .padding()

@@ -16,11 +16,11 @@
 import Foundation
 import Combine
 
-struct Service {
-    func fetchLesson(url: URL) -> AnyPublisher<[Lesson], Error> {
+struct ServiceLesson {
+    func fetchLesson(url: URL) -> AnyPublisher<[LessonGet], Error> {
         return URLSession.shared.dataTaskPublisher(for: url)
             .map(\.data)
-            .decode(type: [Lesson].self, decoder: JSONDecoder())
+            .decode(type: [LessonGet].self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
 }
