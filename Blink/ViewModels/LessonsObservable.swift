@@ -56,29 +56,44 @@ class ViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    let full_path: String = "https://ww"
+    func cadastrarLesson(
+        title: String,
+        type: String,
+        contents: [String],
+        exercises: [Exercise]?
+    ) {
 
-    if let url = URL(string: full_path) {
-        
-        var request = URLRequest(url: url)
-        
-        request.httpMethod = "POST"
-        do {
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                //This converts the optionals in to non optionals that could be used further on
-                //Be aware this will just return when something goes wrong
-                guard let data = data, let response = response, error == nil else{
-
-                    print("Something went wrong: error: \(error?.localizedDescription ?? "unkown error")")
-                    return
-                }
-                
-                print(response)
-                
-                decodedAnswer = String(decoding: data, as: UTF8.self)
-            }
-            
-            task.resume()
+        guard let url = URL(
+            string: "http://192.168.128.65:1880/postar_user"
+        ) else {
+            return
         }
+
+        let lesson = LessonPost(
+            title: title,
+            type: type,
+            contents: contents,
+            exercises: exercises
+        )
+
+        service.postLesson(
+            url: url,
+            lesson: lesson
+        )
+        .receive(on: DispatchQueue.main)
+        .sink(
+            receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Aula enviada com sucesso")
+
+                case .failure(let error):
+                    print("Erro ao enviar:", error)
+                }
+            },
+            receiveValue: { }
+        )
+        .store(in: &cancellables)
     }
+    
 }

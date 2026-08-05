@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var viewModel = ViewModel()
+    @State var mostrarCadastro = false
     
     var body: some View {
         VStack {
@@ -23,9 +24,14 @@ struct ContentView: View {
                 }.onAppear(){
                     viewModel.fetchAulas()
                 }
+                Button("Cadastrar aula") {
+                    mostrarCadastro = true
+                }
+                .sheet(isPresented: $mostrarCadastro) {
+                    CadastroLessonView()
+                }
             }
         }
-        
         .padding()
     }
 }
