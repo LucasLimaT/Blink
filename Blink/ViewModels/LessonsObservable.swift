@@ -7,16 +7,17 @@
 import Foundation
 import Combine
 
-class ViewModel: ObservableObject {
+class LessonsViewModel: ObservableObject {
     
     @Published var lessons: [LessonGet] = []
     
+    private let BASE_URL = "http://192.168.128.25:1880"
     private let service = ServiceLesson()
     private var cancellables = Set<AnyCancellable>()
     
     func fetchAulas() {
         
-        guard let url = URL(string: "http://192.168.128.65:1880/pegar_adm_aulas") else {
+        guard let url = URL(string: "\(BASE_URL)/pegar_adm_aulas") else {
             return
         }
         
@@ -30,7 +31,7 @@ class ViewModel: ObservableObject {
     
     func fetchTutoriais() {
         
-        guard let url = URL(string: "http://192.168.128.65:1880/pegar_adm_tutoriais") else {
+        guard let url = URL(string: "\(BASE_URL)/pegar_adm_tutoriais") else {
             return
         }
         
@@ -44,7 +45,7 @@ class ViewModel: ObservableObject {
     
     func fetchProjetos() {
         
-        guard let url = URL(string: "http://192.168.128.65:1880/pegar_adm_projetos") else {
+        guard let url = URL(string: "\(BASE_URL)/pegar_adm_projetos") else {
             return
         }
         
@@ -64,7 +65,7 @@ class ViewModel: ObservableObject {
     ) {
 
         guard let url = URL(
-            string: "http://192.168.128.65:1880/postar_user"
+            string: "\(BASE_URL)/postar_user"
         ) else {
             return
         }

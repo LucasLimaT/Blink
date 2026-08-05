@@ -8,17 +8,17 @@
 import Foundation
 import Combine
 
-struct ServiceLesson {
-    func fetchLesson(url: URL) -> AnyPublisher<[LessonGet], Error> {
+struct ServicePost {
+    func fetchPost(url: URL) -> AnyPublisher<[PostGet], Error> {
         return URLSession.shared.dataTaskPublisher(for: url)
             .map(\.data)
-            .decode(type: [LessonGet].self, decoder: JSONDecoder())
+            .decode(type: [PostGet].self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
     
-    func postLesson(
+    func postPost(
         url: URL,
-        lesson: LessonPost
+        post: PostPost
     ) -> AnyPublisher<Void, Error> {
         
         var request = URLRequest(url: url)
@@ -34,7 +34,7 @@ struct ServiceLesson {
         )
         
         do {
-            request.httpBody = try JSONEncoder().encode(lesson)
+            request.httpBody = try JSONEncoder().encode(post)
         } catch {
             return Fail(error: error)
                 .eraseToAnyPublisher()
@@ -56,3 +56,4 @@ struct ServiceLesson {
             .eraseToAnyPublisher()
     }
 }
+

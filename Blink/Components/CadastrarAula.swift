@@ -21,13 +21,13 @@ struct CadastroLessonView: View {
             
             ZStack{
                 
-                    LinearGradient(
-                        gradient: Gradient(colors: [.white, .white]), // Suas cores aqui
-                        startPoint: .topLeading,                      // Ponto inicial
-                        endPoint: .bottomTrailing                     // Ponto final
-                    )
-                    .frame(width: 350, height: 600)
-                    .clipShape(RoundedRectangle(cornerRadius: 24))
+                LinearGradient(
+                    gradient: Gradient(colors: [.white, .white]), // Suas cores aqui
+                    startPoint: .topLeading,                      // Ponto inicial
+                    endPoint: .bottomTrailing                     // Ponto final
+                )
+                .frame(width: 350, height: 600)
+                .clipShape(RoundedRectangle(cornerRadius: 24))
             }
             
             VStack(spacing: 16) {
@@ -45,9 +45,9 @@ struct CadastroLessonView: View {
                 TextField("Título", text: $title)
                     .frame(width: 325)
                     .textFieldStyle(.roundedBorder)
-                    
                 
-                Picker("Tipo", selection: $type) {
+                
+                Picker("Tags", selection: $type) {
                     Text("Aula").tag("Aula")
                     Text("Projeto").tag("Projeto")
                     Text("Tutorial").tag("Tutorial")
@@ -60,7 +60,7 @@ struct CadastroLessonView: View {
                     .frame(width: 325)
                     .textFieldStyle(.roundedBorder)
                 
-                Button("Cadastrar") {
+                Button("Enviar") {
                     viewModel.cadastrarLesson(
                         title: title,
                         type: type,
@@ -69,9 +69,9 @@ struct CadastroLessonView: View {
                     )
                 }
                 .frame(width: 125, height: 40)
-                        .background(.orange)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .foregroundStyle(.white)
+                .background(.orange)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .foregroundStyle(.white)
                 
                 .disabled(
                     title.isEmpty || content.isEmpty
