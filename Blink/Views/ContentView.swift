@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject var viewModel = ViewModel()
+    @StateObject var viewModel = LessonsViewModel()
     @State var mostrarCadastro = false
     
     var body: some View {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CadastroLessonView: View {
     
-    @StateObject private var viewModel = ViewModel()
+    @StateObject private var viewModel = LessonsViewModel()
     
     @State private var title = ""
     @State private var type = "Aula"
