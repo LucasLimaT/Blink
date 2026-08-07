@@ -1,65 +1,47 @@
-//
-//  NovaAula.swift
-//  Blink
-//
-//  Created by Turma02-20 on 04/08/26.
-//
-
 import SwiftUI
 
 struct CadastroLessonView: View {
-    
-    @StateObject private var viewModel = LessonsViewModel()
-    
     @State private var title = ""
     @State private var type = "Aula"
     @State private var content = ""
-    
+
+    @StateObject private var viewModel = LessonsViewModel()
+
     var body: some View {
         ZStack {
-            Color.orange
-            
-            ZStack{
-                
-                LinearGradient(
-                    gradient: Gradient(colors: [.white, .white]), // Suas cores aqui
-                    startPoint: .topLeading,                      // Ponto inicial
-                    endPoint: .bottomTrailing                     // Ponto final
-                )
+            Color.blinkOrange
+                .ignoresSafeArea()
+
+            RoundedRectangle(cornerRadius: 24)
+                .fill(Color.blinkSurface)
                 .frame(width: 350, height: 600)
-                .clipShape(RoundedRectangle(cornerRadius: 24))
-            }
-            
+
             VStack(spacing: 16) {
-                
                 Image("blink1")
                     .resizable()
-                    .frame(width: 300 , height: 70)
-                    .padding(.bottom , 75)
-                
-                Text("Publicar Tutorial:")
+                    .frame(width: 300, height: 70)
+                    .padding(.bottom, 75)
+
+                Text("Publicar tutorial")
                     .font(.headline)
-                    .foregroundStyle(.orange)
-                    .padding()
-                
+                    .foregroundColor(.blinkOrange)
+
                 TextField("Título", text: $title)
                     .frame(width: 325)
                     .textFieldStyle(.roundedBorder)
-                
-                
-                Picker("Tags", selection: $type) {
+
+                Picker("Tipo", selection: $type) {
                     Text("Aula").tag("Aula")
                     Text("Projeto").tag("Projeto")
                     Text("Tutorial").tag("Tutorial")
                 }
                 .pickerStyle(.segmented)
                 .frame(width: 325)
-                .foregroundStyle(.orange)
-                
+
                 TextField("Conteúdo", text: $content)
                     .frame(width: 325)
                     .textFieldStyle(.roundedBorder)
-                
+
                 Button("Enviar") {
                     viewModel.cadastrarLesson(
                         title: title,
@@ -67,18 +49,16 @@ struct CadastroLessonView: View {
                         contents: [content],
                         exercises: nil
                     )
+
+                    title = ""
+                    content = ""
                 }
                 .frame(width: 125, height: 40)
-                .background(.orange)
+                .background(Color.blinkOrange)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
-                .foregroundStyle(.white)
-                
-                .disabled(
-                    title.isEmpty || content.isEmpty
-                )
+                .foregroundColor(.white)
+                .disabled(title.isEmpty || content.isEmpty)
             }
-            .padding()
-            
         }
     }
 }

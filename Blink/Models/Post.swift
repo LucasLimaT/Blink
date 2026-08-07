@@ -1,11 +1,4 @@
-//
-//  Aulas.swift
-//  
-//
-//  Created by Turma02-20 on 30/07/26.
-//
-
-struct PostGet: Codable, Hashable {
+struct PostGet: Codable {
     let _id: String
     let _rev: String
     let author: String
@@ -14,15 +7,14 @@ struct PostGet: Codable, Hashable {
     let tags: [String]
 }
 
-struct PostPost: Codable, Hashable {
+struct PostPost: Codable {
     let author: String
     let comments: [Comment]
     let contents: [String]
     let tags: [String]
 }
 
-struct Comment: Codable, Hashable {
+struct Comment: Codable {
     let author: String
     let content: String
 }
-

@@ -1,5 +1,6 @@
-//  s.swift
-//  Aula6e7-Desafios
+//
+//  PostsObservable.swift
+//  Blink
 //
 //  Created by Turma02-20 on 16/07/26.
 //
@@ -8,19 +9,19 @@ import Foundation
 import Combine
 
 class PostsViewModel: ObservableObject {
-    
+
     @Published var posts: [PostGet] = []
-    
-    private let BASE_URL = "http://192.168.128.25:1880"
+
+    private let BASE_URL = "http://192.168.128.65:1880"
     private let service = ServicePost()
     private var cancellables = Set<AnyCancellable>()
-    
+
     func fetchPost() {
-        
-        guard let url = URL(string: "\(BASE_URL)/pegar_adm_aulas") else {
+
+        guard let url = URL(string: "\(BASE_URL)/pegar_user") else {
             return
         }
-        
+
         service.fetchPost(url: url)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }) { posts in
@@ -28,7 +29,7 @@ class PostsViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     func cadastrarPosts(
         author: String,
         comments: [Comment],
@@ -68,6 +69,4 @@ class PostsViewModel: ObservableObject {
         )
         .store(in: &cancellables)
     }
-    
 }
-

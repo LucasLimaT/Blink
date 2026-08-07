@@ -1,5 +1,6 @@
-//  s.swift
-//  Aula6e7-Desafios
+//
+//  LessonsObservable.swift
+//  Blink
 //
 //  Created by Turma02-20 on 16/07/26.
 //
@@ -8,19 +9,19 @@ import Foundation
 import Combine
 
 class LessonsViewModel: ObservableObject {
-    
+
     @Published var lessons: [LessonGet] = []
-    
-    private let BASE_URL = "http://192.168.128.25:1880"
+
+    private let BASE_URL = "http://192.168.128.65:1880"
     private let service = ServiceLesson()
     private var cancellables = Set<AnyCancellable>()
-    
+
     func fetchAulas() {
-        
+
         guard let url = URL(string: "\(BASE_URL)/pegar_adm_aulas") else {
             return
         }
-        
+
         service.fetchLesson(url: url)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }) { lessons in
@@ -28,13 +29,13 @@ class LessonsViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     func fetchTutoriais() {
-        
+
         guard let url = URL(string: "\(BASE_URL)/pegar_adm_tutoriais") else {
             return
         }
-        
+
         service.fetchLesson(url: url)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }) { lessons in
@@ -42,13 +43,13 @@ class LessonsViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     func fetchProjetos() {
-        
+
         guard let url = URL(string: "\(BASE_URL)/pegar_adm_projetos") else {
             return
         }
-        
+
         service.fetchLesson(url: url)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }) { lessons in
@@ -56,7 +57,7 @@ class LessonsViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+
     func cadastrarLesson(
         title: String,
         type: String,
@@ -96,5 +97,4 @@ class LessonsViewModel: ObservableObject {
         )
         .store(in: &cancellables)
     }
-    
 }

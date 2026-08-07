@@ -1,41 +1,32 @@
-//
-//  ContentView.swift
-//  Blink
-//
-//  Created by Turma02-20 on 30/07/26.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    
-    @StateObject var viewModel = LessonsViewModel()
-    @State var mostrarCadastro = false
-    
+    @StateObject private var viewModel = LessonsViewModel()
+    @State private var showForm = false
+
     var body: some View {
         VStack {
             ScrollView {
-                ForEach(viewModel.lessons, id: \.self) {lesson in
+                ForEach(viewModel.lessons, id: \._id) { lesson in
                     Text(lesson.title)
-                    Text("\(lesson.type)")
-                    ForEach(lesson.contents,  id: \.self) { content in
+                    Text(lesson.type)
+
+                    ForEach(lesson.contents, id: \.self) { content in
                         Text(content)
                     }
-                }.onAppear(){
-                    viewModel.fetchAulas()
                 }
+
                 Button("Cadastrar aula") {
-                    mostrarCadastro = true
-                }
-                .sheet(isPresented: $mostrarCadastro) {
-                    CadastroLessonView()
+                    showForm = true
                 }
             }
         }
+        .onAppear {
+            viewModel.fetchAulas()
+        }
+        .sheet(isPresented: $showForm) {
+            CadastroLessonView()
+        }
         .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }
